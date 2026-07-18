@@ -1,29 +1,132 @@
 # Game Agent Learning
 
-Experimental framework for LLM-driven game agents: ReAct, memory systems, and multi-agent collaboration.
+面向游戏场景的大语言模型（LLM）AI Agent 学习与实验项目，系统性地探索 Agent 认知架构、长程规划、记忆系统、多 Agent 协作与强化学习优化等核心课题。
 
-## 项目简介
+## 研究背景
 
-面向复杂游戏场景，构建基于大语言模型的 Agent 认知架构实验框架。
+以 LLM 为认知核心的 AI Agent 在软件开发、科学研究、办公自动化等通用场景中已展现出强大潜力。游戏作为具备明确目标、丰富交互、复杂规则与动态环境的"天然 Agent 试验场"，对 Agent 在**实时决策、长程规划、多角色协作、环境泛化**等方面提出了远超通用场景的挑战。当前基于 LLM 的 Agent 架构在游戏领域的适配与优化仍处于早期阶段。
 
-核心探索方向：
-- 🧠 **感知-规划-行动闭环**：基于 ReAct 范式，实现 Agent 与游戏环境的动态交互
-- 🗂️ **分层记忆系统**：短期工作记忆 / 长期经验记忆（Vector DB）/ 世界知识记忆（RAG）
-- 🤝 **多 Agent 协作**：基于 MCP 协议的角色分工与通信机制
-- 🎮 **游戏环境对接**：已计划对接 MiniGrid 等沙盒环境，验证长程任务规划能力
+本项目围绕以下典型应用场景开展实验：
+- 🎯 **自主任务通关**：Agent 理解任务目标，感知游戏画面，调用操作接口，完成副本通关、主线推进等长程任务
+- 🧑‍🤝‍🧑 **智能 NPC**：LLM 驱动的 NPC，具备个性化性格，根据玩家行为动态调整对话与行为
+- 🧪 **自动化测试**：Agent 自主探索地图、遍历任务流程、发现并复现 Bug
 
-## 学习路线
+## 核心探索方向
 
-| 阶段 | 时间 | 目标 |
-|------|------|------|
-| Phase 1：筑基 | 7-9月 | 吃透 Hello-Agents 核心章节，手写 ReAct + 记忆系统 |
-| Phase 2：攻坚 | 9-10月 | 对接 MiniGrid，实现层级规划与多 Agent 协作 Demo |
-| Phase 3：拔高 | 11-12月 | RL 优化 + 自动化测试 + 开源贡献 |
-| Phase 4：投递 | 12月 | 简历定稿，集中投递游戏 AI Agent 实习 |
+对应游戏 AI Agent 的五大核心挑战：
+
+| # | 挑战 | 探索内容 |
+|---|------|----------|
+| 1 | **Agent 认知架构** | 设计模块化的感知-记忆-规划-行动-反思架构，标准化游戏环境接口与观测-动作抽象层 |
+| 2 | **长程规划与层级决策** | 高层策略→子目标→操作序列的层级分解，LLM 推理 + RL 策略优化的动态重规划 |
+| 3 | **记忆系统设计** | 短期工作记忆（任务上下文）+ 长期经验记忆（向量检索）+ 世界知识记忆（RAG） |
+| 4 | **多 Agent 协作与博弈** | 多 Agent 通信协议、角色分工、不完全信息下的团队策略涌现 |
+| 5 | **奖励系统与 RL 优化** | 稠密/稀疏奖励信号设计，LLM 自评估 + 过程奖励模型（PRM），PPO/GRPO 策略优化 |
+
+## 项目结构
+
+```
+Game-Agent-Learning/
+├── chapter1/                  # ✅ 已完成
+│   ├── travel_agent.py        #   基于 ReAct 的旅行助手 Agent
+│   ├── requirements.txt       #   Python 依赖
+│   └── README.md              #   章节说明
+├── chapter2/                  # 🚧 规划中 — 记忆系统
+├── chapter3/                  # 🚧 规划中 — 层级规划
+├── chapter4/                  # 🚧 规划中 — 游戏环境对接（MiniGrid）
+├── chapter5/                  # 🚧 规划中 — 多 Agent 协作
+├── chapter6/                  # 🚧 规划中 — RL 策略优化
+└── README.md
+```
+
+### Chapter 1：初识智能体 ✅
+
+实现了一个基于 **ReAct 范式**（Thought → Action → Observation 循环）的智能旅行助手，覆盖：
+
+- **工具调用**：实时天气查询（wttr.in）+ 天气预报（Open-Meteo，±10 天）+ 景点推荐（Tavily Search）
+- **Prompt Engineering**：结构化 system prompt 驱动 LLM 按格式输出
+- **主循环解析**：正则提取 Action → 动态调用工具 → 追加 Observation
+
+→ 详见 [chapter1/README.md](chapter1/README.md)
+
+### Chapter 2：记忆系统 🚧
+
+计划涉及：
+- 短期记忆：滑动窗口上下文管理
+- 长期记忆：ChromaDB / FAISS 向量存储 + 经验检索
+- 世界知识：RAG 接入游戏机制文档
+
+### Chapter 3：层级规划 🚧
+
+计划涉及：
+- 任务分解：LLM 将高层目标拆解为可执行子任务
+- 动态重规划：执行失败时的目标修正与路径重规划
+- 与 MiniGrid 环境对接
+
+### Chapter 4：游戏环境对接 🚧
+
+计划涉及：
+- MiniGrid 环境适配器开发
+- 观测空间抽象（图像 → 文本状态描述）
+- 动作空间封装（离散指令映射）
+
+### Chapter 5：多 Agent 协作 🚧
+
+计划涉及：
+- 多 Agent 角色分工与通信协议
+- 不完全信息下的协作决策
+- 组队任务模拟实验
+
+### Chapter 6：RL 策略优化 🚧
+
+计划涉及：
+- 基于游戏沙盒的奖励信号设计
+- LLM 自评估 + PRM 奖励建模
+- PPO / GRPO 策略优化与评估
 
 ## 技术栈
 
-Python · PyTorch · Transformers · LangChain · ChromaDB · MiniGrid
+| 层级 | 技术 |
+|------|------|
+| Agent 框架 | ReAct, Chain-of-Thought, Tool Use, Prompt Engineering |
+| LLM 推理 | OpenAI 兼容 API（支持任意模型） |
+| 记忆存储 | ChromaDB / FAISS（规划中） |
+| 强化学习 | PPO, GRPO（规划中） |
+| 游戏环境 | MiniGrid（规划中） |
+| 语言 | Python 3.10+ |
+
+## 环境搭建
+
+```bash
+# 克隆仓库
+git clone git@github.com:XiaoXiang-dafa/Game-Agent-Learning.git
+cd Game-Agent-Learning
+
+# 创建虚拟环境
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 安装依赖
+pip install -r chapter1/requirements.txt
+```
+
+在项目根目录创建 `.env` 文件（已通过 `.gitignore` 排除）：
+```bash
+LLM_API_KEY=your_api_key
+LLM_BASE_URL=https://api.openai.com/v1
+LLM_MODEL_ID=gpt-4o
+TAVILY_API_KEY=your_tavily_key
+```
+
+## 学习路线
+
+| 阶段 | 时间 | 内容 | 对应 Chapter |
+|------|------|------|:---:|
+| Phase 1：基础 | 7-8 月 | ReAct 范式、工具调用、Prompt Engineering | Ch1 |
+| Phase 2：记忆 | 8-9 月 | 短期/长期/世界知识记忆系统设计与实现 | Ch2 |
+| Phase 3：规划 | 9-10 月 | 层级任务分解、动态重规划、MiniGrid 对接 | Ch3-4 |
+| Phase 4：协作 | 10-11 月 | 多 Agent 通信、角色分工、博弈策略 | Ch5 |
+| Phase 5：优化 | 11-12 月 | 奖励系统、RL 策略优化、自动化测试 | Ch6 |
 
 ## 致谢
 
