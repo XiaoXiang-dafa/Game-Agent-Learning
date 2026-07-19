@@ -31,6 +31,9 @@ Game-Agent-Learning/
 │   ├── travel_agent.py        #   基于 ReAct 的旅行助手 Agent
 │   ├── requirements.txt       #   Python 依赖
 │   └── README.md              #   章节说明
+├── chapter2/                  # ✅ 已完成
+│   ├── Transformer.py         #   从零实现的 Transformer 架构
+│   └── README.md              #   章节说明
 └── README.md
 ```
 
@@ -44,12 +47,24 @@ Game-Agent-Learning/
 
 → 详见 [chapter1/README.md](chapter1/README.md)
 
+### Chapter 2：Transformer 从零实现 ✅
+
+基于 PyTorch 逐行手写 Transformer 架构，对应论文 "Attention Is All You Need"，覆盖：
+
+- **位置编码**：sin/cos 为序列每个位置生成唯一编码
+- **多头注意力**：核心模块，拆成多个头各自做缩放点积注意力
+- **Encoder-Decoder**：完整堆叠结构，含残差连接与 LayerNorm
+- **Mask 机制**：padding mask + 下三角 subsequent mask
+
+→ 详见 [chapter2/README.md](chapter2/README.md)
+
 ## 技术栈
 
 | 层级 | 技术 |
 |------|------|
 | Agent 框架 | ReAct, Tool Use, Prompt Engineering |
 | LLM 推理 | OpenAI 兼容 API（支持任意模型） |
+| 深度学习 | PyTorch |
 | 信息检索 | Tavily Search API |
 | 天气数据 | wttr.in / Open-Meteo |
 | 语言 | Python 3.10+ |
